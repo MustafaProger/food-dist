@@ -1,11 +1,15 @@
 window.addEventListener('DOMContentLoaded', function () {
-    const forms = document.querySelectorAll('form');
+    const forms = document.querySelectorAll('form'),
+        modal = document.querySelector('.modal'),
+        newmodal = document.querySelector('.newmodal'),
+        btnClose = document.querySelectorAll('[data-close]');
 
-    const message = {
-        loading: 'Загрузка',
-        success: 'Спасибо! Скоро мы с вами свяжемся',
-        failure: 'Что-то пошло не так...'
-    }
+    btnClose.forEach(closer => {
+        closer.addEventListener('click', () => {
+            newmodal.classList.remove('success');
+            newmodal.classList.remove('failure');
+        })
+    })
 
     forms.forEach(item => {
         postData(item);
@@ -15,10 +19,7 @@ window.addEventListener('DOMContentLoaded', function () {
         form.addEventListener('submit', (e) => {
             e.preventDefault();
 
-            const statusMessage = document.createElement('div');
-            statusMessage.classList.add('status');
-            statusMessage.textContent = message.loading;
-            form.append(statusMessage);
+            document.body.classList.add('sending');
 
             const request = new XMLHttpRequest();
             request.open('POST', 'php/server.php');
@@ -36,15 +37,17 @@ window.addEventListener('DOMContentLoaded', function () {
 
             request.addEventListener('load', () => {
                 if (request.status === 200) {
+                    document.body.classList.remove('sending');
+                    modal.classList.remove('modal-open');
+                    newmodal.classList.add('success');
+
                     console.log(request.response);
-                    statusMessage.textContent = message.success;
                     form.reset();
-                    setTimeout(() => {
-                        statusMessage.remove();
-                    }, 2000);
 
                 } else {
-                    statusMessage.textContent = message.failure;
+                    document.body.classList.remove('sending');
+                    modal.classList.remove('modal-open');
+                    newmodal.classList.add('failure');
                 }
 
             })

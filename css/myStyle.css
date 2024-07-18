@@ -14,7 +14,6 @@
     }
 }
 
-
 @keyframes fade-down {
     0% {
         opacity: 0;
@@ -24,6 +23,16 @@
     100% {
         opacity: 1;
         transform: translateX(0px);
+    }
+}
+
+@keyframes loading {
+    0% {
+        transform: translate(-50%) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(-50%) rotate(360deg);
     }
 }
 
@@ -37,8 +46,107 @@
 
 .modal-open {
     display: block;
+    z-index: 1;
 }
 
 .fixed {
     overflow: hidden;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    visibility: hidden;
+}
+
+body.sending {
+    position: relative;
+    overflow: hidden;
+}
+
+body.sending::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+body.sending .loading {
+    display: block
+}
+
+.loading {
+    display: none;
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    z-index: 3;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 50px;
+    z-index: 1100;
+    border: 5px solid rgba(255, 255, 255, 0.1);
+    border-top: 5px solid white;
+    border-radius: 100%;
+    animation: loading 1s infinite linear;
+}
+
+.newmodal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    display: none;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, .3);
+}
+
+.newmodal-success,
+.newmodal-failure {
+    position: relative;
+    max-width: 500px;
+    width: 100%;
+    padding: 40px;
+    margin: 40px auto;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, .2);
+    border-radius: 4px;
+    max-height: 80vh;
+    overflow-y: auto;
+    display: none;
+}
+
+.newmodal__close {
+    position: absolute;
+    top: 8px;
+    right: 14px;
+    font-size: 30px;
+    color: #000;
+    opacity: .5;
+    font-weight: 700;
+    border: none;
+    background-color: transparent;
+    cursor: pointer
+}
+
+.newmodal__title {
+    text-align: center;
+    font-size: 22px;
+}
+
+.newmodal.success,
+.newmodal.success .newmodal-success {
+    display: block;
+}
+
+.newmodal.failure,
+.newmodal.failure .newmodal-failure {
+    display: block;
 }

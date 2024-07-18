@@ -8,7 +8,6 @@ window.addEventListener('DOMContentLoaded', function () {
 
     // const modalTimerID = setTimeout(openModal, 5000);
 
-
     function closeModal() {
         modal.classList.remove('modal-open');
         document.body.classList.remove('fixed');
