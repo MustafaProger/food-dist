@@ -6,8 +6,8 @@ window.addEventListener('DOMContentLoaded', function () {
         btnClose = document.querySelector('[data-close]'),
         modal = document.querySelector('.modal');
 
-    const modalTimerID = setTimeout(openModal, 5000);
-    
+    // const modalTimerID = setTimeout(openModal, 5000);
+
 
     function closeModal() {
         modal.classList.remove('modal-open');
