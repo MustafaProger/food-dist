@@ -1,0 +1,44 @@
+.hide-content {
+    display: none;
+}
+
+@keyframes fade-up {
+    0% {
+        opacity: 0;
+        transform: translateY(-15px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0px);
+    }
+}
+
+
+@keyframes fade-down {
+    0% {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0px);
+    }
+}
+
+.fade-up {
+    animation: fade-up 0.5s ease-in-out forwards;
+}
+
+.fade-down {
+    animation: fade-down 0.5s ease-in-out forwards;
+}
+
+.modal-open {
+    display: block;
+}
+
+.fixed {
+    overflow: hidden;
+}
