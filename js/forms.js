@@ -21,36 +21,34 @@ window.addEventListener('DOMContentLoaded', function () {
 
             document.body.classList.add('sending');
 
-            const request = new XMLHttpRequest();
-            request.open('POST', 'php/server.php');
-            request.setRequestHeader('Content-type', 'application/json');
-
             const formData = new FormData(form);
 
             const object = {};
             formData.forEach(function (value, key) {
                 object[key] = value;
             });
-            const json = JSON.stringify(object);
 
-            request.send(json);
-
-            request.addEventListener('load', () => {
-                if (request.status === 200) {
-                    document.body.classList.remove('sending');
-                    modal.classList.remove('modal-open');
+            fetch('php/server.php', {
+                    method: "POST",
+                    headers: {
+                        'Content-type': 'application/json',
+                    },
+                    body: JSON.stringify(object)
+                })
+                .then(() => {
+                    closeModal()
                     newmodal.classList.add('success');
-
-                    console.log(request.response);
-                    form.reset();
-
-                } else {
-                    document.body.classList.remove('sending');
-                    modal.classList.remove('modal-open');
+                }).catch(() => {
+                    closeModal()
                     newmodal.classList.add('failure');
-                }
-
-            })
+                }).finally(() => {
+                    form.reset()
+                })
         })
+    }
+
+    function closeModal() {
+        document.body.classList.remove('sending');
+        modal.classList.remove('modal-open');
     }
 })
