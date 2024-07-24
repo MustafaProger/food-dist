@@ -1,3 +1,6 @@
+// Урок 86. Fetch API
+// Урок 89. Получение данных с сервера. Async/Await (ES8)
+
 window.addEventListener('DOMContentLoaded', function () {
     const forms = document.querySelectorAll('form'),
         modal = document.querySelector('.modal'),
@@ -12,10 +15,22 @@ window.addEventListener('DOMContentLoaded', function () {
     })
 
     forms.forEach(item => {
-        postData(item);
+        bindPostData(item);
     })
 
-    function postData(form) {
+    const postData = async (url, data) => {
+        const result = await fetch(url, {
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json',
+            },
+            body: data
+        })
+
+        return await result.json()
+    }
+
+    function bindPostData(form) {
         form.addEventListener('submit', (e) => {
             e.preventDefault();
 
@@ -23,26 +38,17 @@ window.addEventListener('DOMContentLoaded', function () {
 
             const formData = new FormData(form);
 
-            const object = {};
-            formData.forEach(function (value, key) {
-                object[key] = value;
-            });
+            const json = JSON.stringify(Object.fromEntries(formData.entries()));
 
-            fetch('php/server.php', {
-                    method: "POST",
-                    headers: {
-                        'Content-type': 'application/json',
-                    },
-                    body: JSON.stringify(object)
-                })
+            postData('http://localhost:3000/requests', json)
                 .then(() => {
-                    closeModal()
+                    closeModal();
                     newmodal.classList.add('success');
                 }).catch(() => {
-                    closeModal()
+                    closeModal();
                     newmodal.classList.add('failure');
                 }).finally(() => {
-                    form.reset()
+                    form.reset();
                 })
         })
     }
