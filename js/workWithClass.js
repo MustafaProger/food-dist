@@ -1,10 +1,8 @@
 // Урок 78. Используем классы в реальной работе
 // Урок 79. Rest оператор и параметры по умолчанию (ES6)
-
+// Урок 90. Дополнительно: Что такое библиотеки. Библиотека axios
 
 window.addEventListener('DOMContentLoaded', function() {
-    const menuField = document.querySelector('.menu__field .container');
-
     class PriceCard {
         constructor(img, altForImg, title, description, price, parentSelector, ...classes) {
             this.img = img;
@@ -50,9 +48,16 @@ window.addEventListener('DOMContentLoaded', function() {
         return await result.json()
     }
 
-    getResource("http://localhost:3000/menu")
-        .then(data => {
-            data.forEach(({img, altimg, title, descr, price}) => {
+    // getResource("http://localhost:3000/menu")
+    //     .then(data => {
+    //         data.forEach(({img, altimg, title, descr, price}) => {
+    //             new PriceCard(img, altimg, title, descr, price, '.menu__field .container')
+    //         });
+    //     })
+
+    axios.get("http://localhost:3000/menu")
+        .then(response => {
+            response.data.forEach(({img, altimg, title, descr, price}) => {
                 new PriceCard(img, altimg, title, descr, price, '.menu__field .container')
             });
         })
