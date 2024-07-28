@@ -1,7 +1,7 @@
 // Урок 68. Создаем таймер обратного отсчета на сайте
 
 window.addEventListener('DOMContentLoaded', () => {
-    const deadLine = '2024-07-22';
+    const deadLine = '2025-07-22';
 
     function getTimeRemaining(endtime) {
         const t = Date.parse(endtime) - Date.parse(new Date()),

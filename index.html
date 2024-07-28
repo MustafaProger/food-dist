@@ -119,20 +119,20 @@
             <div class="offer__slider">
                 <div class="offer__slider-counter">
                     <div class="offer__slider-prev">
-                        <img src="icons/left.svg" alt="prev">
+                        <img src="icons/left.svg" alt="prev" class="prev">
                     </div>
-                    <span id="current">03</span>
+                    <span id="current">01</span>
                     /
                     <span id="total">04</span>
                     <div class="offer__slider-next">
-                        <img src="icons/right.svg" alt="next">
+                        <img src="icons/right.svg" alt="next" class="next">
                     </div>
                 </div>
                 <div class="offer__slider-wrapper">
                     <div class="offer__slide">
                         <img src="img/slider/pepper.jpg" alt="pepper">
                     </div>
-                    <!-- <div class="offer__slide">
+                    <div class="offer__slide">
                         <img src="img/slider/food-12.jpg" alt="food">
                     </div>
                     <div class="offer__slide">
@@ -140,7 +140,7 @@
                     </div>
                     <div class="offer__slide">
                         <img src="img/slider/paprika.jpg" alt="paprika">
-                    </div> -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -304,18 +304,20 @@
     </div>
 
     <div class="loading active"><span></span></div>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+    <script>
+        AOS.init();
+    </script>
+
 
     <script defer src="js/tabs.js"></script>
     <script defer src="js/timer.js"></script>
     <script defer src="js/modal.js"></script>
     <script defer src="js/workWithClass.js"></script>
     <script defer src="js/forms.js"></script>
+    <script defer src="js/slider.js"></script>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
-    <script>
-        AOS.init();
-    </script>
 </body>
 
 </html>
