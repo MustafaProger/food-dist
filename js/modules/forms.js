@@ -1,7 +1,7 @@
 // Урок 86. Fetch API
 // Урок 89. Получение данных с сервера. Async/Await (ES8)
 
-window.addEventListener('DOMContentLoaded', function () {
+function forms() {
     const forms = document.querySelectorAll('form'),
         modal = document.querySelector('.modal'),
         newmodal = document.querySelector('.newmodal'),
@@ -56,5 +56,8 @@ window.addEventListener('DOMContentLoaded', function () {
     function closeModal() {
         document.body.classList.remove('sending');
         modal.classList.remove('modal-open');
+
     }
-})
+}
+
+module.exports = forms;

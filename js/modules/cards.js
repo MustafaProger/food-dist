@@ -2,7 +2,8 @@
 // Урок 79. Rest оператор и параметры по умолчанию (ES6)
 // Урок 90. Дополнительно: Что такое библиотеки. Библиотека axios
 
-window.addEventListener('DOMContentLoaded', function() {
+function cards() {
+
     class PriceCard {
         constructor(img, altForImg, title, description, price, parentSelector, ...classes) {
             this.img = img;
@@ -61,4 +62,6 @@ window.addEventListener('DOMContentLoaded', function() {
                 new PriceCard(img, altimg, title, descr, price, '.menu__field .container')
             });
         })
-});
+}
+
+module.exports = cards;

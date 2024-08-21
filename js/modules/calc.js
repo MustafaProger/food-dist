@@ -1,4 +1,4 @@
-window.addEventListener('DOMContentLoaded', () => {
+function calc() {
     const genders = document.querySelectorAll('#gender .calculating__choose-item'),
         activity = document.querySelectorAll('#activity .calculating__choose-item'),
         male = document.querySelector('#male'),
@@ -101,4 +101,6 @@ window.addEventListener('DOMContentLoaded', () => {
     height.addEventListener('input', calculateBMR);
     weight.addEventListener('input', calculateBMR);
     age.addEventListener('input', calculateBMR);
-})
+}
+
+module.exports = calc;

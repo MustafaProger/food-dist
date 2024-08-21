@@ -1,6 +1,8 @@
 // Урок 63. Создаем табы в новом проекте
 
-window.addEventListener('DOMContentLoaded', () => {
+function tabs() {
+
+
     const tabContent = document.querySelectorAll('.tabcontent'),
         tabheaderItem = document.querySelectorAll('.tabheader__item'),
         tabheaderParent = document.querySelector('.tabheader');
@@ -41,4 +43,6 @@ window.addEventListener('DOMContentLoaded', () => {
     hideTabContent()
     clickTabContent()
 
-})
+}
+
+module.exports = tabs;

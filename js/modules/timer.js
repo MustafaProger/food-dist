@@ -1,14 +1,15 @@
 // Урок 68. Создаем таймер обратного отсчета на сайте
 
-window.addEventListener('DOMContentLoaded', () => {
+function timer() {
+
     const deadLine = '2025-07-22';
 
     function getTimeRemaining(endtime) {
         const t = Date.parse(endtime) - Date.parse(new Date()),
-              days = Math.floor(t / (1000 * 60 * 60 * 24)),
-              hours = Math.floor((t / (1000 * 60 * 60) % 24)),
-              minutes = Math.floor((t / 60000) % 60),
-              seconds = Math.floor((t / 1000) % 60);
+            days = Math.floor(t / (1000 * 60 * 60 * 24)),
+            hours = Math.floor((t / (1000 * 60 * 60) % 24)),
+            minutes = Math.floor((t / 60000) % 60),
+            seconds = Math.floor((t / 1000) % 60);
 
         return {
             'total': t,
@@ -29,14 +30,14 @@ window.addEventListener('DOMContentLoaded', () => {
 
     function setClock(selector, endtime) {
         const timer = document.querySelector(selector),
-              days = document.querySelector('#days'),
-              hours = document.querySelector('#hours'),
-              minutes = document.querySelector('#minutes'),
-              seconds = document.querySelector('#seconds'),
-              timeInterval = setInterval(updateClock, 1000);
+            days = document.querySelector('#days'),
+            hours = document.querySelector('#hours'),
+            minutes = document.querySelector('#minutes'),
+            seconds = document.querySelector('#seconds'),
+            timeInterval = setInterval(updateClock, 1000);
 
-              updateClock()
-        
+        updateClock()
+
         function updateClock() {
             const t = getTimeRemaining(endtime);
 
@@ -58,4 +59,6 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     setClock('.timer', deadLine)
-})
+}
+
+module.exports = timer;

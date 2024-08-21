@@ -1,7 +1,7 @@
 // Урок 91. Создаем слайдер на сайте, вариант 1
 
+function slider() {
 
-window.addEventListener('DOMContentLoaded', () => {
     const images = document.querySelectorAll('.offer__slide'),
         prev = document.querySelector('.offer__slider-prev'),
         next = document.querySelector('.offer__slider-next'),
@@ -99,4 +99,6 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 
     updateCurrentSlideNumber();
-});
+}
+
+module.exports = slider;

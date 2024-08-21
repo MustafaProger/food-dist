@@ -1,7 +1,7 @@
 // Урок 71. Создаем модальное окно
 // Урок 72. Модификации модального окна
 
-window.addEventListener('DOMContentLoaded', function () {
+function modal() {
     const btnOpen = document.querySelectorAll('[data-modal]'),
         btnClose = document.querySelector('[data-close]'),
         modal = document.querySelector('.modal');
@@ -40,4 +40,6 @@ window.addEventListener('DOMContentLoaded', function () {
     })
 
     window.addEventListener('scroll', showModalByScroll);
-});
+}
+
+module.exports = modal;
