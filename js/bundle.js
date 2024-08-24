@@ -1,12 +1,17 @@
 /******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "./js/modules/calc.js":
 /*!****************************!*\
   !*** ./js/modules/calc.js ***!
   \****************************/
-/***/ ((module) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 function calc() {
     const genders = document.querySelectorAll('#gender .calculating__choose-item'),
         activity = document.querySelectorAll('#activity .calculating__choose-item'),
@@ -112,7 +117,7 @@ function calc() {
     age.addEventListener('input', calculateBMR);
 }
 
-module.exports = calc;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (calc);
 
 /***/ }),
 
@@ -120,75 +125,68 @@ module.exports = calc;
 /*!*****************************!*\
   !*** ./js/modules/cards.js ***!
   \*****************************/
-/***/ ((module) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _services_services__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../services/services */ "./js/services/services.js");
 // Урок 78. Используем классы в реальной работе
 // Урок 79. Rest оператор и параметры по умолчанию (ES6)
 // Урок 90. Дополнительно: Что такое библиотеки. Библиотека axios
 
 function cards() {
-
-    class PriceCard {
-        constructor(img, altForImg, title, description, price, parentSelector, ...classes) {
-            this.img = img;
-            this.altForImg = altForImg;
+    class MenuCard {
+        constructor(src, alt, title, descr, price, parentSelector, ...classes) {
+            this.src = src;
+            this.alt = alt;
             this.title = title;
-            this.description = description;
+            this.descr = descr;
             this.price = price;
-            this.classes = classes.length ? classes : ['menu__item'];
-            this.transwer = 95;
+            this.classes = classes;
             this.parent = document.querySelector(parentSelector);
-            this.changeToRUB();
-            this.render();
+            this.transfer = 27;
+            this.changeToUAH(); 
         }
 
-        changeToRUB() {
-            return this.price = this.price * this.transwer
+        changeToUAH() {
+            this.price = this.price * this.transfer; 
         }
 
         render() {
-            const div = document.createElement('div');
-            this.classes.forEach(className => div.classList.add(className));
-            
-            div.innerHTML = `                
-                <img src="${this.img}" alt="${this.altForImg}">
+            const element = document.createElement('div');
+
+            if (this.classes.length === 0) {
+                this.classes = "menu__item";
+                element.classList.add(this.classes);
+            } else {
+                this.classes.forEach(className => element.classList.add(className));
+            }
+
+            element.innerHTML = `
+                <img src=${this.src} alt=${this.alt}>
                 <h3 class="menu__item-subtitle">${this.title}</h3>
-                <div class="menu__item-descr">${this.description}</div>
+                <div class="menu__item-descr">${this.descr}</div>
                 <div class="menu__item-divider"></div>
                 <div class="menu__item-price">
                     <div class="menu__item-cost">Цена:</div>
-                    <div class="menu__item-total"><span>${this.price}</span> руб/день</div>
-                </div>`;
-            this.parent.append(div);
+                    <div class="menu__item-total"><span>${this.price}</span> грн/день</div>
+                </div>
+            `;
+            this.parent.append(element);
         }
     }
 
-    const getResource = async (url, data) => {
-        const result = await fetch(url);
-
-        if (!result.ok) {
-            throw new Error(`Could not fetch ${url}, status: ${result.status}`)
-        }
-
-        return await result.json()
-    }
-
-    // getResource("http://localhost:3000/menu")
-    //     .then(data => {
-    //         data.forEach(({img, altimg, title, descr, price}) => {
-    //             new PriceCard(img, altimg, title, descr, price, '.menu__field .container')
-    //         });
-    //     })
-
-    axios.get("http://localhost:3000/menu")
-        .then(response => {
-            response.data.forEach(({img, altimg, title, descr, price}) => {
-                new PriceCard(img, altimg, title, descr, price, '.menu__field .container')
+    (0,_services_services__WEBPACK_IMPORTED_MODULE_0__.getResource)('http://localhost:3000/menu')
+        .then(data => {
+            data.forEach(({img, altimg, title, descr, price}) => {
+                new MenuCard(img, altimg, title, descr, price, ".menu .container").render();
             });
-        })
+        });
 }
 
-module.exports = cards;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (cards);
 
 /***/ }),
 
@@ -196,10 +194,17 @@ module.exports = cards;
 /*!*****************************!*\
   !*** ./js/modules/forms.js ***!
   \*****************************/
-/***/ ((module) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _services_services__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../services/services */ "./js/services/services.js");
 // Урок 86. Fetch API
 // Урок 89. Получение данных с сервера. Async/Await (ES8)
+
+
 
 function forms() {
     const forms = document.querySelectorAll('form'),
@@ -218,18 +223,6 @@ function forms() {
         bindPostData(item);
     })
 
-    const postData = async (url, data) => {
-        const result = await fetch(url, {
-            method: "POST",
-            headers: {
-                'Content-type': 'application/json',
-            },
-            body: data
-        })
-
-        return await result.json()
-    }
-
     function bindPostData(form) {
         form.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -240,7 +233,7 @@ function forms() {
 
             const json = JSON.stringify(Object.fromEntries(formData.entries()));
 
-            postData('http://localhost:3000/requests', json)
+            (0,_services_services__WEBPACK_IMPORTED_MODULE_0__.postData)('http://localhost:3000/requests', json)
                 .then(() => {
                     closeModal();
                     newmodal.classList.add('success');
@@ -260,7 +253,7 @@ function forms() {
     }
 }
 
-module.exports = forms;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (forms);
 
 /***/ }),
 
@@ -268,8 +261,12 @@ module.exports = forms;
 /*!*****************************!*\
   !*** ./js/modules/modal.js ***!
   \*****************************/
-/***/ ((module) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 // Урок 71. Создаем модальное окно
 // Урок 72. Модификации модального окна
 
@@ -278,7 +275,7 @@ function modal() {
         btnClose = document.querySelector('[data-close]'),
         modal = document.querySelector('.modal');
 
-    // const modalTimerID = setTimeout(openModal, 5000);
+    const modalTimerID = setTimeout(openModal, 5000);
 
     function closeModal() {
         modal.classList.remove('modal-open');
@@ -314,7 +311,7 @@ function modal() {
     window.addEventListener('scroll', showModalByScroll);
 }
 
-module.exports = modal;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (modal);
 
 /***/ }),
 
@@ -322,8 +319,12 @@ module.exports = modal;
 /*!******************************!*\
   !*** ./js/modules/slider.js ***!
   \******************************/
-/***/ ((module) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 // Урок 91. Создаем слайдер на сайте, вариант 1
 
 function slider() {
@@ -427,7 +428,7 @@ function slider() {
     updateCurrentSlideNumber();
 }
 
-module.exports = slider;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (slider);
 
 /***/ }),
 
@@ -435,13 +436,16 @@ module.exports = slider;
 /*!****************************!*\
   !*** ./js/modules/tabs.js ***!
   \****************************/
-/***/ ((module) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 // Урок 63. Создаем табы в новом проекте
 
 function tabs() {
-
-
+    
     const tabContent = document.querySelectorAll('.tabcontent'),
         tabheaderItem = document.querySelectorAll('.tabheader__item'),
         tabheaderParent = document.querySelector('.tabheader');
@@ -484,7 +488,7 @@ function tabs() {
 
 }
 
-module.exports = tabs;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (tabs);
 
 /***/ }),
 
@@ -492,8 +496,12 @@ module.exports = tabs;
 /*!*****************************!*\
   !*** ./js/modules/timer.js ***!
   \*****************************/
-/***/ ((module) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 // Урок 68. Создаем таймер обратного отсчета на сайте
 
 function timer() {
@@ -557,7 +565,47 @@ function timer() {
     setClock('.timer', deadLine)
 }
 
-module.exports = timer;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (timer);
+
+/***/ }),
+
+/***/ "./js/services/services.js":
+/*!*********************************!*\
+  !*** ./js/services/services.js ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getResource: () => (/* binding */ getResource),
+/* harmony export */   postData: () => (/* binding */ postData)
+/* harmony export */ });
+const postData = async (url, data) => {
+    const result = await fetch(url, {
+        method: "POST",
+        headers: {
+            'Content-type': 'application/json',
+        },
+        body: data
+    })
+
+    return await result.json()
+}
+
+const getResource = async (url) => {
+    const result = await fetch(url);
+
+    if (!result.ok) {
+        throw new Error(`Could not fetch ${url}, status: ${result.status}`)
+    }
+
+    return await result.json()
+}
+
+
+
+
+
 
 /***/ })
 
@@ -588,25 +636,63 @@ module.exports = timer;
 /******/ 	}
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
 /*!**********************!*\
   !*** ./js/script.js ***!
   \**********************/
-window.addEventListener('DOMContentLoaded', () => {
-    const calc = __webpack_require__(/*! ./modules/calc */ "./js/modules/calc.js"),
-        cards = __webpack_require__(/*! ./modules/cards */ "./js/modules/cards.js"),
-        forms = __webpack_require__(/*! ./modules/forms */ "./js/modules/forms.js"),
-        modal = __webpack_require__(/*! ./modules/modal */ "./js/modules/modal.js"),
-        slider = __webpack_require__(/*! ./modules/slider */ "./js/modules/slider.js"),
-        tabs = __webpack_require__(/*! ./modules/tabs */ "./js/modules/tabs.js"),
-        timer = __webpack_require__(/*! ./modules/timer */ "./js/modules/timer.js");
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _modules_calc__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/calc */ "./js/modules/calc.js");
+/* harmony import */ var _modules_cards__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/cards */ "./js/modules/cards.js");
+/* harmony import */ var _modules_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/forms */ "./js/modules/forms.js");
+/* harmony import */ var _modules_modal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/modal */ "./js/modules/modal.js");
+/* harmony import */ var _modules_slider__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/slider */ "./js/modules/slider.js");
+/* harmony import */ var _modules_tabs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/tabs */ "./js/modules/tabs.js");
+/* harmony import */ var _modules_timer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/timer */ "./js/modules/timer.js");
 
-    calc();
-    cards();
-    forms();
-    modal();
-    slider();
-    tabs();
-    timer();
+
+
+
+
+
+
+
+window.addEventListener('DOMContentLoaded', () => {
+    (0,_modules_calc__WEBPACK_IMPORTED_MODULE_0__["default"])();
+    (0,_modules_cards__WEBPACK_IMPORTED_MODULE_1__["default"])();
+    (0,_modules_forms__WEBPACK_IMPORTED_MODULE_2__["default"])();
+    (0,_modules_modal__WEBPACK_IMPORTED_MODULE_3__["default"])();
+    (0,_modules_slider__WEBPACK_IMPORTED_MODULE_4__["default"])();
+    (0,_modules_tabs__WEBPACK_IMPORTED_MODULE_5__["default"])();
+    (0,_modules_timer__WEBPACK_IMPORTED_MODULE_6__["default"])();
 })
 /******/ })()
 ;

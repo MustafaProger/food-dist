@@ -103,4 +103,4 @@ function calc() {
     age.addEventListener('input', calculateBMR);
 }
 
-module.exports = calc;
+export default calc;

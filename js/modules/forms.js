@@ -1,6 +1,8 @@
 // Урок 86. Fetch API
 // Урок 89. Получение данных с сервера. Async/Await (ES8)
 
+import { postData } from "../services/services";
+
 function forms() {
     const forms = document.querySelectorAll('form'),
         modal = document.querySelector('.modal'),
@@ -17,18 +19,6 @@ function forms() {
     forms.forEach(item => {
         bindPostData(item);
     })
-
-    const postData = async (url, data) => {
-        const result = await fetch(url, {
-            method: "POST",
-            headers: {
-                'Content-type': 'application/json',
-            },
-            body: data
-        })
-
-        return await result.json()
-    }
 
     function bindPostData(form) {
         form.addEventListener('submit', (e) => {
@@ -60,4 +50,4 @@ function forms() {
     }
 }
 
-module.exports = forms;
+export default forms;

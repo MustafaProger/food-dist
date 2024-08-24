@@ -1,67 +1,55 @@
 // Урок 78. Используем классы в реальной работе
 // Урок 79. Rest оператор и параметры по умолчанию (ES6)
 // Урок 90. Дополнительно: Что такое библиотеки. Библиотека axios
-
+import {getResource} from '../services/services';
 function cards() {
-
-    class PriceCard {
-        constructor(img, altForImg, title, description, price, parentSelector, ...classes) {
-            this.img = img;
-            this.altForImg = altForImg;
+    class MenuCard {
+        constructor(src, alt, title, descr, price, parentSelector, ...classes) {
+            this.src = src;
+            this.alt = alt;
             this.title = title;
-            this.description = description;
+            this.descr = descr;
             this.price = price;
-            this.classes = classes.length ? classes : ['menu__item'];
-            this.transwer = 95;
+            this.classes = classes;
             this.parent = document.querySelector(parentSelector);
-            this.changeToRUB();
-            this.render();
+            this.transfer = 27;
+            this.changeToUAH(); 
         }
 
-        changeToRUB() {
-            return this.price = this.price * this.transwer
+        changeToUAH() {
+            this.price = this.price * this.transfer; 
         }
 
         render() {
-            const div = document.createElement('div');
-            this.classes.forEach(className => div.classList.add(className));
-            
-            div.innerHTML = `                
-                <img src="${this.img}" alt="${this.altForImg}">
+            const element = document.createElement('div');
+
+            if (this.classes.length === 0) {
+                this.classes = "menu__item";
+                element.classList.add(this.classes);
+            } else {
+                this.classes.forEach(className => element.classList.add(className));
+            }
+
+            element.innerHTML = `
+                <img src=${this.src} alt=${this.alt}>
                 <h3 class="menu__item-subtitle">${this.title}</h3>
-                <div class="menu__item-descr">${this.description}</div>
+                <div class="menu__item-descr">${this.descr}</div>
                 <div class="menu__item-divider"></div>
                 <div class="menu__item-price">
                     <div class="menu__item-cost">Цена:</div>
-                    <div class="menu__item-total"><span>${this.price}</span> руб/день</div>
-                </div>`;
-            this.parent.append(div);
+                    <div class="menu__item-total"><span>${this.price}</span> грн/день</div>
+                </div>
+            `;
+            this.parent.append(element);
         }
     }
 
-    const getResource = async (url, data) => {
-        const result = await fetch(url);
-
-        if (!result.ok) {
-            throw new Error(`Could not fetch ${url}, status: ${result.status}`)
-        }
-
-        return await result.json()
-    }
-
-    // getResource("http://localhost:3000/menu")
-    //     .then(data => {
-    //         data.forEach(({img, altimg, title, descr, price}) => {
-    //             new PriceCard(img, altimg, title, descr, price, '.menu__field .container')
-    //         });
-    //     })
-
-    axios.get("http://localhost:3000/menu")
-        .then(response => {
-            response.data.forEach(({img, altimg, title, descr, price}) => {
-                new PriceCard(img, altimg, title, descr, price, '.menu__field .container')
+    getResource('http://localhost:3000/menu')
+        .then(data => {
+            data.forEach(({img, altimg, title, descr, price}) => {
+                new MenuCard(img, altimg, title, descr, price, ".menu .container").render();
             });
-        })
+        });
 }
 
-module.exports = cards;
+export default cards;

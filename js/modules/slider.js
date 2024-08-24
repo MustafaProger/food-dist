@@ -101,4 +101,4 @@ function slider() {
     updateCurrentSlideNumber();
 }
 
-module.exports = slider;
+export default slider;

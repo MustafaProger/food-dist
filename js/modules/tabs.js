@@ -1,8 +1,7 @@
 // Урок 63. Создаем табы в новом проекте
 
 function tabs() {
-
-
+    
     const tabContent = document.querySelectorAll('.tabcontent'),
         tabheaderItem = document.querySelectorAll('.tabheader__item'),
         tabheaderParent = document.querySelector('.tabheader');
@@ -45,4 +44,4 @@ function tabs() {
 
 }
 
-module.exports = tabs;
+export default tabs;
