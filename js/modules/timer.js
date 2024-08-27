@@ -9,6 +9,11 @@ function timer(deadLine, timeSelector) {
             minutes = Math.floor((t / 60000) % 60),
             seconds = Math.floor((t / 1000) % 60);
 
+        const date = new Date(deadLine),
+            promotionEnd = document.querySelector('.promotion__end');
+
+        promotionEnd.innerHTML = `Акция закончится ${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()} года в 00:00`;
+
         return {
             'total': t,
             'days': days,
@@ -56,7 +61,8 @@ function timer(deadLine, timeSelector) {
         }
     }
 
-    setClock(timeSelector, deadLine)
+    setClock(timeSelector, deadLine);
+
 }
 
 export default timer;

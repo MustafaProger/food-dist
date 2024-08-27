@@ -147,7 +147,7 @@ function cards() {
             this.price = price;
             this.classes = classes;
             this.parent = document.querySelector(parentSelector);
-            this.transfer = 27;
+            this.transfer = 95;
             this.changeToUAH(); 
         }
 
@@ -172,7 +172,7 @@ function cards() {
                 <div class="menu__item-divider"></div>
                 <div class="menu__item-price">
                     <div class="menu__item-cost">Цена:</div>
-                    <div class="menu__item-total"><span>${this.price}</span> грн/день</div>
+                    <div class="menu__item-total"><span>${this.price}</span> руб/день</div>
                 </div>
             `;
             this.parent.append(element);
@@ -513,6 +513,11 @@ function timer(deadLine, timeSelector) {
             minutes = Math.floor((t / 60000) % 60),
             seconds = Math.floor((t / 1000) % 60);
 
+        const date = new Date(deadLine),
+            promotionEnd = document.querySelector('.promotion__end');
+
+        promotionEnd.innerHTML = `Акция закончится ${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()} года в 00:00`;
+
         return {
             'total': t,
             'days': days,
@@ -560,7 +565,8 @@ function timer(deadLine, timeSelector) {
         }
     }
 
-    setClock(timeSelector, deadLine)
+    setClock(timeSelector, deadLine);
+
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (timer);
@@ -699,7 +705,7 @@ window.addEventListener('DOMContentLoaded', () => {
         sliderSelector: '.offer__slider' 
     });
     (0,_modules_tabs__WEBPACK_IMPORTED_MODULE_5__["default"])('.tabcontent', 'tabheader__item', '.tabheader', 'hide-content', 'tabheader__item_active');
-    (0,_modules_timer__WEBPACK_IMPORTED_MODULE_6__["default"])('2025-07-22', '.timer');
+    (0,_modules_timer__WEBPACK_IMPORTED_MODULE_6__["default"])('2024-12-12', '.timer');
 })
 /******/ })()
 ;

@@ -580,7 +580,7 @@ a {
     font-weight: 300
 }
 
-.promotion__descr span {
+.promotion__descr .procents {
     font-weight: 700;
     font-size: 26px
 }
