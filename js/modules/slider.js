@@ -1,15 +1,14 @@
 // Урок 91. Создаем слайдер на сайте, вариант 1
 
-function slider() {
-
-    const images = document.querySelectorAll('.offer__slide'),
-        prev = document.querySelector('.offer__slider-prev'),
-        next = document.querySelector('.offer__slider-next'),
-        current = document.querySelector('#current'),
-        slidesWrapper = document.querySelector('.offer__slider-wrapper'),
-        slidersField = document.querySelector('.offer_slider-inner'),
+function slider({imagesSelector, prevSelector, nextSelector, currentSelector, slidesWrapperSelector, slidersFieldSelector, sliderSelector}) {
+    const images = document.querySelectorAll(imagesSelector),
+        prev = document.querySelector(prevSelector),
+        next = document.querySelector(nextSelector),
+        current = document.querySelector(currentSelector),
+        slidesWrapper = document.querySelector(slidesWrapperSelector),
+        slidersField = document.querySelector(slidersFieldSelector),
         width = window.getComputedStyle(slidesWrapper).width,
-        slider = document.querySelector('.offer__slider');
+        slider = document.querySelector(sliderSelector);
 
     let offset = 0;
     let slideIndex = 1;

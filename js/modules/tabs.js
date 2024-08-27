@@ -1,24 +1,24 @@
 // Урок 63. Создаем табы в новом проекте
 
-function tabs() {
+function tabs(tabContentSelector, tabheaderItemSelector, tabheaderParentSelector, classDisctive, classActive) {
     
-    const tabContent = document.querySelectorAll('.tabcontent'),
-        tabheaderItem = document.querySelectorAll('.tabheader__item'),
-        tabheaderParent = document.querySelector('.tabheader');
+    const tabContent = document.querySelectorAll(tabContentSelector),
+        tabheaderItem = document.querySelectorAll(`.${tabheaderItemSelector}`),
+        tabheaderParent = document.querySelector(tabheaderParentSelector);
 
     function showTabContent(i = 0) {
         tabContent.forEach((item, index) => {
             if (i === index) {
-                item.classList.remove('hide-content');
+                item.classList.remove(classDisctive);
             } else {
-                item.classList.add('hide-content');
+                item.classList.add(classDisctive);
             }
         })
     }
 
     function hideTabContent() {
         tabContent.forEach(item => {
-            item.classList.add('hide-content');
+            item.classList.add(classDisctive);
             showTabContent();
         })
     }
@@ -26,13 +26,13 @@ function tabs() {
     function clickTabContent() {
         tabheaderParent.addEventListener('click', (event) => {
             const target = event.target;
-            if (target && target.classList.contains('tabheader__item')) {
+            if (target && target.classList.contains(tabheaderItemSelector)) {
                 tabheaderItem.forEach((item, index) => {
                     if (item === target) {
-                        item.classList.add('tabheader__item_active');
+                        item.classList.add(classActive);
                         showTabContent(index)
                     } else {
-                        item.classList.remove('tabheader__item_active');
+                        item.classList.remove(classActive);
                     }
                 })
             }

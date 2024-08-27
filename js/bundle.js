@@ -136,6 +136,7 @@ __webpack_require__.r(__webpack_exports__);
 // Урок 79. Rest оператор и параметры по умолчанию (ES6)
 // Урок 90. Дополнительно: Что такое библиотеки. Библиотека axios
 
+
 function cards() {
     class MenuCard {
         constructor(src, alt, title, descr, price, parentSelector, ...classes) {
@@ -206,16 +207,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function forms() {
-    const forms = document.querySelectorAll('form'),
-        modal = document.querySelector('.modal'),
-        newmodal = document.querySelector('.newmodal'),
-        btnClose = document.querySelectorAll('[data-close]');
+function forms(formSelector, modalSelector, messageSelector, btnCloseSelector) {
+    const forms = document.querySelectorAll(formSelector),
+        modal = document.querySelector(modalSelector),
+        message = document.querySelector(messageSelector),
+        btnClose = document.querySelectorAll(btnCloseSelector);
 
     btnClose.forEach(closer => {
         closer.addEventListener('click', () => {
-            newmodal.classList.remove('success');
-            newmodal.classList.remove('failure');
+            message.classList.remove('success');
+            message.classList.remove('failure');
+            document.body.classList.remove('fixed');
         })
     })
 
@@ -236,10 +238,10 @@ function forms() {
             (0,_services_services__WEBPACK_IMPORTED_MODULE_0__.postData)('http://localhost:3000/requests', json)
                 .then(() => {
                     closeModal();
-                    newmodal.classList.add('success');
+                    message.classList.add('success');
                 }).catch(() => {
                     closeModal();
-                    newmodal.classList.add('failure');
+                    message.classList.add('failure');
                 }).finally(() => {
                     form.reset();
                 })
@@ -249,7 +251,6 @@ function forms() {
     function closeModal() {
         document.body.classList.remove('sending');
         modal.classList.remove('modal-open');
-
     }
 }
 
@@ -270,12 +271,12 @@ __webpack_require__.r(__webpack_exports__);
 // Урок 71. Создаем модальное окно
 // Урок 72. Модификации модального окна
 
-function modal() {
-    const btnOpen = document.querySelectorAll('[data-modal]'),
-        btnClose = document.querySelector('[data-close]'),
-        modal = document.querySelector('.modal');
+function modal(btnOpenSelector, btnCloseSelector, modalSelector, modalTimer) {
+    const btnOpen = document.querySelectorAll(btnOpenSelector),
+        btnClose = document.querySelector(btnCloseSelector),
+        modal = document.querySelector(modalSelector);
 
-    const modalTimerID = setTimeout(openModal, 5000);
+    const modalTimerID = setTimeout(openModal, modalTimer);
 
     function closeModal() {
         modal.classList.remove('modal-open');
@@ -327,16 +328,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 // Урок 91. Создаем слайдер на сайте, вариант 1
 
-function slider() {
-
-    const images = document.querySelectorAll('.offer__slide'),
-        prev = document.querySelector('.offer__slider-prev'),
-        next = document.querySelector('.offer__slider-next'),
-        current = document.querySelector('#current'),
-        slidesWrapper = document.querySelector('.offer__slider-wrapper'),
-        slidersField = document.querySelector('.offer_slider-inner'),
+function slider({imagesSelector, prevSelector, nextSelector, currentSelector, slidesWrapperSelector, slidersFieldSelector, sliderSelector}) {
+    const images = document.querySelectorAll(imagesSelector),
+        prev = document.querySelector(prevSelector),
+        next = document.querySelector(nextSelector),
+        current = document.querySelector(currentSelector),
+        slidesWrapper = document.querySelector(slidesWrapperSelector),
+        slidersField = document.querySelector(slidersFieldSelector),
         width = window.getComputedStyle(slidesWrapper).width,
-        slider = document.querySelector('.offer__slider');
+        slider = document.querySelector(sliderSelector);
 
     let offset = 0;
     let slideIndex = 1;
@@ -444,25 +444,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 // Урок 63. Создаем табы в новом проекте
 
-function tabs() {
+function tabs(tabContentSelector, tabheaderItemSelector, tabheaderParentSelector, classDisctive, classActive) {
     
-    const tabContent = document.querySelectorAll('.tabcontent'),
-        tabheaderItem = document.querySelectorAll('.tabheader__item'),
-        tabheaderParent = document.querySelector('.tabheader');
+    const tabContent = document.querySelectorAll(tabContentSelector),
+        tabheaderItem = document.querySelectorAll(`.${tabheaderItemSelector}`),
+        tabheaderParent = document.querySelector(tabheaderParentSelector);
 
     function showTabContent(i = 0) {
         tabContent.forEach((item, index) => {
             if (i === index) {
-                item.classList.remove('hide-content');
+                item.classList.remove(classDisctive);
             } else {
-                item.classList.add('hide-content');
+                item.classList.add(classDisctive);
             }
         })
     }
 
     function hideTabContent() {
         tabContent.forEach(item => {
-            item.classList.add('hide-content');
+            item.classList.add(classDisctive);
             showTabContent();
         })
     }
@@ -470,13 +470,13 @@ function tabs() {
     function clickTabContent() {
         tabheaderParent.addEventListener('click', (event) => {
             const target = event.target;
-            if (target && target.classList.contains('tabheader__item')) {
+            if (target && target.classList.contains(tabheaderItemSelector)) {
                 tabheaderItem.forEach((item, index) => {
                     if (item === target) {
-                        item.classList.add('tabheader__item_active');
+                        item.classList.add(classActive);
                         showTabContent(index)
                     } else {
-                        item.classList.remove('tabheader__item_active');
+                        item.classList.remove(classActive);
                     }
                 })
             }
@@ -504,9 +504,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 // Урок 68. Создаем таймер обратного отсчета на сайте
 
-function timer() {
-
-    const deadLine = '2025-07-22';
+function timer(deadLine, timeSelector) {
 
     function getTimeRemaining(endtime) {
         const t = Date.parse(endtime) - Date.parse(new Date()),
@@ -562,7 +560,7 @@ function timer() {
         }
     }
 
-    setClock('.timer', deadLine)
+    setClock(timeSelector, deadLine)
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (timer);
@@ -587,10 +585,14 @@ const postData = async (url, data) => {
             'Content-type': 'application/json',
         },
         body: data
-    })
+    });
 
-    return await result.json()
-}
+    if (!result.ok) {
+        throw new Error(`Could not post ${url}, status: ${result.status}`);
+    }
+
+    return await result.json();
+};
 
 const getResource = async (url) => {
     const result = await fetch(url);
@@ -601,9 +603,6 @@ const getResource = async (url) => {
 
     return await result.json()
 }
-
-
-
 
 
 
@@ -688,11 +687,19 @@ __webpack_require__.r(__webpack_exports__);
 window.addEventListener('DOMContentLoaded', () => {
     (0,_modules_calc__WEBPACK_IMPORTED_MODULE_0__["default"])();
     (0,_modules_cards__WEBPACK_IMPORTED_MODULE_1__["default"])();
-    (0,_modules_forms__WEBPACK_IMPORTED_MODULE_2__["default"])();
-    (0,_modules_modal__WEBPACK_IMPORTED_MODULE_3__["default"])();
-    (0,_modules_slider__WEBPACK_IMPORTED_MODULE_4__["default"])();
-    (0,_modules_tabs__WEBPACK_IMPORTED_MODULE_5__["default"])();
-    (0,_modules_timer__WEBPACK_IMPORTED_MODULE_6__["default"])();
+    (0,_modules_forms__WEBPACK_IMPORTED_MODULE_2__["default"])('form', '.modal', '.message', '[data-close]');
+    (0,_modules_modal__WEBPACK_IMPORTED_MODULE_3__["default"])('[data-modal]', '[data-close]', '.modal', 30000);
+    (0,_modules_slider__WEBPACK_IMPORTED_MODULE_4__["default"])({
+        imagesSelector: '.offer__slide',
+        prevSelector: '.offer__slider-prev',
+        nextSelector: '.offer__slider-next',
+        currentSelector: '#current',
+        slidesWrapperSelector: '.offer__slider-wrapper',
+        slidersFieldSelector: '.offer_slider-inner',
+        sliderSelector: '.offer__slider' 
+    });
+    (0,_modules_tabs__WEBPACK_IMPORTED_MODULE_5__["default"])('.tabcontent', 'tabheader__item', '.tabheader', 'hide-content', 'tabheader__item_active');
+    (0,_modules_timer__WEBPACK_IMPORTED_MODULE_6__["default"])('2025-07-22', '.timer');
 })
 /******/ })()
 ;

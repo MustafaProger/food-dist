@@ -1,8 +1,6 @@
 // Урок 68. Создаем таймер обратного отсчета на сайте
 
-function timer() {
-
-    const deadLine = '2025-07-22';
+function timer(deadLine, timeSelector) {
 
     function getTimeRemaining(endtime) {
         const t = Date.parse(endtime) - Date.parse(new Date()),
@@ -58,7 +56,7 @@ function timer() {
         }
     }
 
-    setClock('.timer', deadLine)
+    setClock(timeSelector, deadLine)
 }
 
 export default timer;

@@ -3,16 +3,17 @@
 
 import { postData } from "../services/services";
 
-function forms() {
-    const forms = document.querySelectorAll('form'),
-        modal = document.querySelector('.modal'),
-        newmodal = document.querySelector('.newmodal'),
-        btnClose = document.querySelectorAll('[data-close]');
+function forms(formSelector, modalSelector, messageSelector, btnCloseSelector) {
+    const forms = document.querySelectorAll(formSelector),
+        modal = document.querySelector(modalSelector),
+        message = document.querySelector(messageSelector),
+        btnClose = document.querySelectorAll(btnCloseSelector);
 
     btnClose.forEach(closer => {
         closer.addEventListener('click', () => {
-            newmodal.classList.remove('success');
-            newmodal.classList.remove('failure');
+            message.classList.remove('success');
+            message.classList.remove('failure');
+            document.body.classList.remove('fixed');
         })
     })
 
@@ -33,10 +34,10 @@ function forms() {
             postData('http://localhost:3000/requests', json)
                 .then(() => {
                     closeModal();
-                    newmodal.classList.add('success');
+                    message.classList.add('success');
                 }).catch(() => {
                     closeModal();
-                    newmodal.classList.add('failure');
+                    message.classList.add('failure');
                 }).finally(() => {
                     form.reset();
                 })
@@ -46,7 +47,6 @@ function forms() {
     function closeModal() {
         document.body.classList.remove('sending');
         modal.classList.remove('modal-open');
-
     }
 }
 

@@ -5,10 +5,14 @@ const postData = async (url, data) => {
             'Content-type': 'application/json',
         },
         body: data
-    })
+    });
 
-    return await result.json()
-}
+    if (!result.ok) {
+        throw new Error(`Could not post ${url}, status: ${result.status}`);
+    }
+
+    return await result.json();
+};
 
 const getResource = async (url) => {
     const result = await fetch(url);
@@ -21,5 +25,3 @@ const getResource = async (url) => {
 }
 
 export { postData, getResource };
-
-

@@ -2,6 +2,7 @@
 // Урок 79. Rest оператор и параметры по умолчанию (ES6)
 // Урок 90. Дополнительно: Что такое библиотеки. Библиотека axios
 import {getResource} from '../services/services';
+
 function cards() {
     class MenuCard {
         constructor(src, alt, title, descr, price, parentSelector, ...classes) {

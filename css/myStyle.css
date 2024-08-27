@@ -96,7 +96,7 @@ body.sending .loading {
     animation: loading 1s infinite linear;
 }
 
-.newmodal {
+.message {
     position: fixed;
     top: 0;
     left: 0;
@@ -108,8 +108,8 @@ body.sending .loading {
     background-color: rgba(0, 0, 0, .3);
 }
 
-.newmodal-success,
-.newmodal-failure {
+.message-success,
+.message-failure {
     position: relative;
     max-width: 500px;
     width: 100%;
@@ -123,7 +123,7 @@ body.sending .loading {
     display: none;
 }
 
-.newmodal__close {
+.message__close {
     position: absolute;
     top: 8px;
     right: 14px;
@@ -136,18 +136,18 @@ body.sending .loading {
     cursor: pointer
 }
 
-.newmodal__title {
+.message__title {
     text-align: center;
     font-size: 22px;
 }
 
-.newmodal.success,
-.newmodal.success .newmodal-success {
+.message.success,
+.message.success .message-success {
     display: block;
 }
 
-.newmodal.failure,
-.newmodal.failure .newmodal-failure {
+.message.failure,
+.message.failure .message-failure {
     display: block;
 }
 
