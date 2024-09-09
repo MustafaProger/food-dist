@@ -8,12 +8,14 @@ import modal from './modules/modal';
 import slider from './modules/slider';
 import tabs from './modules/tabs';
 import timer from './modules/timer';
+import animation from './modules/animation';
 
 window.addEventListener('DOMContentLoaded', () => {
+    animation();
     calc();
     cards();
     forms('form', '.modal', '.message', '[data-close]');
-    modal('[data-modal]', '[data-close]', '.modal', 30000);
+    modal('[data-modal]', '[data-close]', '.modal');
     slider({
         imagesSelector: '.offer__slide',
         prevSelector: '.offer__slider-prev',

@@ -1,6 +1,59 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./js/modules/animation.js":
+/*!*********************************!*\
+  !*** ./js/modules/animation.js ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+function animation() {
+  const buttons = document.querySelectorAll('a[href^="#"]'); // Получаем все ссылки, ведущие на якорные блоки
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', event => {
+      event.preventDefault(); // Отменяем стандартное поведение ссылки
+
+      const blockID = btn.getAttribute('href').substring(1); // Получаем ID блока, к которому нужно прокрутить
+      const block = document.getElementById(blockID); // Находим блок по ID
+
+      if (block) {
+        const targetPosition = block.getBoundingClientRect().top + window.pageYOffset; // Позиция блока
+        const startPosition = window.pageYOffset; // Текущая позиция прокрутки
+        const distance = targetPosition - startPosition; // Расстояние до блока
+        const duration = 1000; // Продолжительность анимации в миллисекундах
+        let startTime = null;
+
+        // Функция анимации
+        function scrollAnimation(currentTime) {
+          if (startTime === null) startTime = currentTime;
+          const timeElapsed = currentTime - startTime;
+          const run = ease(timeElapsed, startPosition, distance, duration);
+          window.scrollTo(0, run);
+          if (timeElapsed < duration) requestAnimationFrame(scrollAnimation);
+        }
+
+        // Функция плавности анимации (easing function)
+        function ease(t, b, c, d) {
+          t /= d / 2;
+          if (t < 1) return c / 2 * t * t + b;
+          t--;
+          return -c / 2 * (t * (t - 2) - 1) + b;
+        }
+        requestAnimationFrame(scrollAnimation);
+      }
+    });
+  });
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (animation);
+
+/***/ }),
+
 /***/ "./js/modules/calc.js":
 /*!****************************!*\
   !*** ./js/modules/calc.js ***!
@@ -249,11 +302,13 @@ __webpack_require__.r(__webpack_exports__);
 // Урок 71. Создаем модальное окно
 // Урок 72. Модификации модального окна
 
-function modal(btnOpenSelector, btnCloseSelector, modalSelector, modalTimer) {
+function modal(btnOpenSelector, btnCloseSelector, modalSelector) {
   const btnOpen = document.querySelectorAll(btnOpenSelector),
     btnClose = document.querySelector(btnCloseSelector),
     modal = document.querySelector(modalSelector);
-  const modalTimerID = setTimeout(openModal, modalTimer);
+
+  // const modalTimerID = setTimeout(openModal, modalTimer);
+
   function closeModal() {
     modal.classList.remove('modal-open');
     document.body.classList.remove('fixed');
@@ -1851,6 +1906,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_slider__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/slider */ "./js/modules/slider.js");
 /* harmony import */ var _modules_tabs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/tabs */ "./js/modules/tabs.js");
 /* harmony import */ var _modules_timer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/timer */ "./js/modules/timer.js");
+/* harmony import */ var _modules_animation__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/animation */ "./js/modules/animation.js");
 (__webpack_require__(/*! es6-promise */ "./node_modules/es6-promise/dist/es6-promise.js").polyfill)();
 
 
@@ -1860,11 +1916,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 window.addEventListener('DOMContentLoaded', () => {
+  (0,_modules_animation__WEBPACK_IMPORTED_MODULE_8__["default"])();
   (0,_modules_calc__WEBPACK_IMPORTED_MODULE_1__["default"])();
   (0,_modules_cards__WEBPACK_IMPORTED_MODULE_2__["default"])();
   (0,_modules_forms__WEBPACK_IMPORTED_MODULE_3__["default"])('form', '.modal', '.message', '[data-close]');
-  (0,_modules_modal__WEBPACK_IMPORTED_MODULE_4__["default"])('[data-modal]', '[data-close]', '.modal', 30000);
+  (0,_modules_modal__WEBPACK_IMPORTED_MODULE_4__["default"])('[data-modal]', '[data-close]', '.modal');
   (0,_modules_slider__WEBPACK_IMPORTED_MODULE_5__["default"])({
     imagesSelector: '.offer__slide',
     prevSelector: '.offer__slider-prev',

@@ -1,12 +1,12 @@
 // Урок 71. Создаем модальное окно
 // Урок 72. Модификации модального окна
 
-function modal(btnOpenSelector, btnCloseSelector, modalSelector, modalTimer) {
+function modal(btnOpenSelector, btnCloseSelector, modalSelector) {
     const btnOpen = document.querySelectorAll(btnOpenSelector),
         btnClose = document.querySelector(btnCloseSelector),
         modal = document.querySelector(modalSelector);
 
-    const modalTimerID = setTimeout(openModal, modalTimer);
+    // const modalTimerID = setTimeout(openModal, modalTimer);
 
     function closeModal() {
         modal.classList.remove('modal-open');
