@@ -6,14 +6,12 @@ const cleanCSS = require('gulp-clean-css');
 const autoprefixer = require('autoprefixer')
 const postcss = require('gulp-postcss')
 
-gulp.task('server', function () {
+gulp.task('server',  function () {
     browserSync.init({
         server: {
-            baseDir: "../Food_dist"
+            baseDir: "./"
         }
     });
-
-    gulp.watch('index.html').on('change', browserSync.reload)
 });
 
 gulp.task('styles', function () {
@@ -35,8 +33,9 @@ gulp.task('styles', function () {
 
 
 gulp.task('watch', function () {
-    gulp.watch('src/sass/*.+(scss|sass)', gulp.parallel('styles'));
+    gulp.watch('*.html').on('change', browserSync.reload)
+    gulp.watch('sass/*.+(scss|sass|css)', gulp.parallel('styles'))
+    gulp.watch('sass/**/*.+(scss|sass|css)', gulp.parallel('styles'))
 });
 
-gulp.task('default', gulp.parallel('watch', 'server', 'styles',));
-
+gulp.task('default', gulp.parallel('watch', 'server', 'styles'));
