@@ -45,14 +45,14 @@ function cards() {
         }
     }
 
-    getResource('http://localhost:3000/menu')
-        .then(data => {
-            const menuItem = data.menu;
+    // getResource('http://localhost:3000/menu')
+    //     .then(data => {
+    //         const menuItem = data.menu;
             
-            menuItem.forEach(({img, altimg, title, descr, price}) => {
-                new MenuCard(img, altimg, title, descr, price, ".menu .container").render();
-            });
-        });
+    //         menuItem.forEach(({img, altimg, title, descr, price}) => {
+    //             new MenuCard(img, altimg, title, descr, price, ".menu .container").render();
+    //         });
+    //     });
 }
 
 export default cards;

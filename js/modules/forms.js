@@ -34,7 +34,7 @@ function forms(formSelector, modalSelector, messageSelector, btnCloseSelector) {
 
                 const json = JSON.stringify(Object.fromEntries(formData.entries()));
 
-                postData('http://localhost:3000/requests', json)
+                postData('https://jsonplaceholder.typicode.com/posts', json)
                     .then(() => {
                         closeModal();
                         message.classList.add('success');

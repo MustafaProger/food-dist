@@ -1,0 +1,77 @@
+@media (max-width: 1440px) 
+    .sidepanel 
+        display: none
+
+    .container
+        padding: 0 30px
+
+
+@media (max-width: 1200px) 
+    .header
+        padding: 0 30px
+        .header__links
+            display: none
+        .header__left-block
+            min-width: 170px
+
+    .preview
+        .bgc_blue
+            display: none
+
+        .tabcontainer
+            flex-direction: column-reverse
+            max-width: 850px
+            width: 100%
+            .tabheader
+                width: 100%
+                padding-bottom: 25px
+                h3
+                    font-size: 20px
+                .tabheader__items
+                    display: flex
+                    gap: 20px
+                    .tabheader__item
+                        margin: auto 0
+
+            .tabcontent
+                max-width: 850px
+                width: 100%
+                img
+                    position: relative
+                    top: 5px
+                .tabcontent__descr 
+                    position: relative
+                    top: 0
+                    right: 0
+                    width: 100%
+                    height: 100%
+
+        .preview__life
+            display: none
+
+@media (max-width: 620px) 
+    .header
+        .header__right-block
+            button
+                height: 100%
+                width: 100%
+                padding: 15px
+                font-size: 14px
+
+    .preview
+        padding: 28px 0 50px 0
+        .tabcontainer
+            .tabheader
+                padding: 30px
+                .tabheader__items
+                    flex-direction: column
+                    gap: 10px
+                    margin: 20px 0 0 0
+                    .tabheader__item
+                        margin: 0
+
+            .tabcontent
+                .tabcontent__descr
+                    padding: 20px
+                    font-size: 16px
+                    line-height: 25px

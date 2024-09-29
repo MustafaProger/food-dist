@@ -214,18 +214,15 @@ function cards() {
       this.parent.append(element);
     }
   }
-  (0,_services_services__WEBPACK_IMPORTED_MODULE_0__.getResource)('http://localhost:3000/menu').then(data => {
-    const menuItem = data.menu;
-    menuItem.forEach(({
-      img,
-      altimg,
-      title,
-      descr,
-      price
-    }) => {
-      new MenuCard(img, altimg, title, descr, price, ".menu .container").render();
-    });
-  });
+
+  // getResource('http://localhost:3000/menu')
+  //     .then(data => {
+  //         const menuItem = data.menu;
+
+  //         menuItem.forEach(({img, altimg, title, descr, price}) => {
+  //             new MenuCard(img, altimg, title, descr, price, ".menu .container").render();
+  //         });
+  //     });
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (cards);
 
@@ -269,7 +266,7 @@ function forms(formSelector, modalSelector, messageSelector, btnCloseSelector) {
         document.body.classList.add('sending');
         const formData = new FormData(form);
         const json = JSON.stringify(Object.fromEntries(formData.entries()));
-        (0,_services_services__WEBPACK_IMPORTED_MODULE_0__.postData)('http://localhost:3000/requests', json).then(() => {
+        (0,_services_services__WEBPACK_IMPORTED_MODULE_0__.postData)('https://jsonplaceholder.typicode.com/posts', json).then(() => {
           closeModal();
           message.classList.add('success');
         }).catch(() => {
