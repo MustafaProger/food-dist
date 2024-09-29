@@ -1,7 +1,7 @@
-// Урок 86. Fetch API
-// Урок 89. Получение данных с сервера. Async/Await (ES8)
-
-import { postData } from "../services/services";
+import {
+    postData
+} from "../services/services";
+import validation from "./validation";
 
 function forms(formSelector, modalSelector, messageSelector, btnCloseSelector) {
     const forms = document.querySelectorAll(formSelector),
@@ -25,22 +25,28 @@ function forms(formSelector, modalSelector, messageSelector, btnCloseSelector) {
         form.addEventListener('submit', (e) => {
             e.preventDefault();
 
-            document.body.classList.add('sending');
+            const isValid = validation(form, '.input-name', '.input-phone', '.input-password', '.input-email')
 
-            const formData = new FormData(form);
+            if (isValid) {
+                document.body.classList.add('sending');
 
-            const json = JSON.stringify(Object.fromEntries(formData.entries()));
+                const formData = new FormData(form);
 
-            postData('https://jsonplaceholder.typicode.com/posts', json)
-                .then(() => {
-                    closeModal();
-                    message.classList.add('success');
-                }).catch(() => {
-                    closeModal();
-                    message.classList.add('failure');
-                }).finally(() => {
-                    form.reset();
-                })
+                const json = JSON.stringify(Object.fromEntries(formData.entries()));
+
+                postData('http://localhost:3000/requests', json)
+                    .then(() => {
+                        closeModal();
+                        message.classList.add('success');
+                    }).catch(() => {
+                        closeModal();
+                        message.classList.add('failure');
+                    }).finally(() => {
+                        form.reset();
+                    })
+            } else {
+                console.log('Ошибка валидации формы');
+            }
         })
     }
 

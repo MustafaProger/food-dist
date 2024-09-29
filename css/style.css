@@ -531,11 +531,12 @@ a {
     padding: 0 100px;
     display: flex;
     justify-content: space-between;
-    align-items: center
 }
 
 .order__form img {
-    transform: scale(1.5)
+    transform: scale(1.5);
+    height: 50px;
+    width: 38px;
 }
 
 .order__input {
@@ -547,7 +548,9 @@ a {
     font-size: 18px;
     text-align: center;
     padding: 0 20px;
-    outline: 0
+    outline: 0;
+    margin: 0 auto;
+    display: block;
 }
 
 .promotion {
@@ -698,7 +701,7 @@ a {
 .modal__input {
     display: block;
     margin: 20px auto 20px auto;
-    width: 280px;
+    width: 310px;
     height: 50px;
     background: #fff;
     box-shadow: 0 4px 15px rgba(0, 0, 0, .2);
@@ -711,6 +714,6 @@ a {
 
 .modal .btn {
     display: block;
-    width: 280px;
+    width: 310px;
     margin: 0 auto
 }

@@ -159,7 +159,8 @@
                     Ваш пол
                 </div>
                 <div class="calculating__choose" id="gender">
-                    <div id="male" data-coefficient="88.36" class="calculating__choose-item calculating__choose-item_active">Мужчина</div>
+                    <div id="male" data-coefficient="88.36"
+                        class="calculating__choose-item calculating__choose-item_active">Мужчина</div>
                     <div id="female" data-coefficient="447.6" class="calculating__choose-item">Женщина</div>
                 </div>
 
@@ -177,7 +178,8 @@
                 </div>
                 <div class="calculating__choose calculating__choose_big" id="activity">
                     <div id="low" data-coefficient="1.2" class="calculating__choose-item">Низкая активность</div>
-                    <div id="small" data-coefficient="1.375" class="calculating__choose-item calculating__choose-item_active" data-activity="1.375">Невысокая
+                    <div id="small" data-coefficient="1.375"
+                        class="calculating__choose-item calculating__choose-item_active" data-activity="1.375">Невысокая
                         активность</div>
                     <div id="medium" data-coefficient="1.55" class="calculating__choose-item">Умеренная активность</div>
                     <div id="high" data-coefficient="1.725" class="calculating__choose-item">Высокая активность</div>
@@ -204,7 +206,42 @@
 
         <div class="menu__field">
             <div class="container">
-
+                <div class="menu__item">
+                    <img src="img/tabs/vegy.jpg" alt="vegy">
+                    <h3 class="menu__item-subtitle">Меню "Фитнес"</h3>
+                    <div class="menu__item-descr">Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих
+                        овощей и фруктов. Продукт активных и здоровых людей. Это абсолютно новый продукт с оптимальной
+                        ценой и высоким качеством!</div>
+                    <div class="menu__item-divider"></div>
+                    <div class="menu__item-price">
+                        <div class="menu__item-cost">Цена:</div>
+                        <div class="menu__item-total"><span>900</span> руб/день</div>
+                    </div>
+                </div>
+                <div class="menu__item">
+                    <img src="img/tabs/elite.jpg" alt="elite">
+                    <h3 class="menu__item-subtitle">Меню “Премиум”</h3>
+                    <div class="menu__item-descr">В меню “Премиум” мы используем не только красивый дизайн упаковки, но
+                        и качественное исполнение блюд. Красная рыба, морепродукты, фрукты - ресторанное меню без похода
+                        в ресторан!</div>
+                    <div class="menu__item-divider"></div>
+                    <div class="menu__item-price">
+                        <div class="menu__item-cost">Цена:</div>
+                        <div class="menu__item-total"><span>1400</span> руб/день</div>
+                    </div>
+                </div>
+                <div class="menu__item">
+                    <img src="img/tabs/post.jpg" alt="post">
+                    <h3 class="menu__item-subtitle">Меню "Постное"</h3>
+                    <div class="menu__item-descr">Меню “Постное” - это тщательный подбор ингредиентов: полное отсутствие
+                        продуктов животного происхождения, молоко из миндаля, овса, кокоса или гречки, правильное
+                        количество белков за счет тофу и импортных вегетарианских стейков. </div>
+                    <div class="menu__item-divider"></div>
+                    <div class="menu__item-price">
+                        <div class="menu__item-cost">Цена:</div>
+                        <div class="menu__item-total"><span>2100</span> руб/день</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -213,8 +250,13 @@
         <div class="container">
             <div class="title">Заказывай пробный день прямо сейчас!</div>
             <form action="#" class="order__form">
-                <input required placeholder="Ваше имя" name="name" type="text" class="order__input">
-                <input required placeholder="Ваш номер телефона" name="phone" type="phone" class="order__input">
+                <div class="order__name">
+                    <input placeholder="Ваше имя" name="name" type="text" class="order__input input-name">
+                </div>
+                <div class="order__phone">
+                    <input placeholder="Ваш номер телефона" name="phone" type="tel" data-tel-input
+                        class="order__input input-phone">
+                </div>
                 <img src="icons/right.svg" alt="right">
                 <button class="btn btn_dark btn_min">Перезвонить мне</button>
             </form>
@@ -272,8 +314,8 @@
             </div>
             <div class="call">
                 <div class="subtitle">Или позвоните нам</div>
-                <a href="tel:79680603084"class="link">+7 968 060 3084</a>
-                <a href="tel:79680603084"class="link">+7 968 078 8742</a>
+                <a href="tel:79680603084" class="link">+7 968 060 3084</a>
+                <a href="tel:79680603084" class="link">+7 968 078 8742</a>
 
             </div>
         </div>
@@ -285,8 +327,9 @@
                 <form action="#">
                     <div data-close class="modal__close">&times;</div>
                     <div class="modal__title">Мы свяжемся с вами как можно быстрее!</div>
-                    <input required placeholder="Ваше имя" name="name" type="text" class="modal__input">
-                    <input required placeholder="Ваш номер телефона" name="phone" type="phone" class="modal__input">
+                    <input placeholder="Ваше имя" name="name" type="text" class="modal__input input-name">
+                    <input placeholder="Ваш номер телефона" name="phone" data-tel-input maxlength="18" type="tel"
+                        class="modal__input input-phone">
                     <button class="btn btn_dark btn_min">Перезвонить мне</button>
                 </form>
             </div>

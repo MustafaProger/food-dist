@@ -9,6 +9,7 @@ import slider from './modules/slider';
 import tabs from './modules/tabs';
 import timer from './modules/timer';
 import animation from './modules/animation';
+import phoneInput from './modules/phoneinput';
 
 window.addEventListener('DOMContentLoaded', () => {
     animation();
@@ -16,6 +17,7 @@ window.addEventListener('DOMContentLoaded', () => {
     cards();
     forms('form', '.modal', '.message', '[data-close]');
     modal('[data-modal]', '[data-close]', '.modal');
+    // phoneInput();
     slider({
         imagesSelector: '.offer__slide',
         prevSelector: '.offer__slider-prev',

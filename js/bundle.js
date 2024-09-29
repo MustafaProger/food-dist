@@ -214,7 +214,7 @@ function cards() {
       this.parent.append(element);
     }
   }
-  (0,_services_services__WEBPACK_IMPORTED_MODULE_0__.getResource)('../../json/db.json').then(data => {
+  (0,_services_services__WEBPACK_IMPORTED_MODULE_0__.getResource)('http://localhost:3000/menu').then(data => {
     const menuItem = data.menu;
     menuItem.forEach(({
       img,
@@ -243,8 +243,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _services_services__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../services/services */ "./js/services/services.js");
-// Урок 86. Fetch API
-// Урок 89. Получение данных с сервера. Async/Await (ES8)
+/* harmony import */ var _validation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./validation */ "./js/modules/validation.js");
 
 
 function forms(formSelector, modalSelector, messageSelector, btnCloseSelector) {
@@ -265,18 +264,23 @@ function forms(formSelector, modalSelector, messageSelector, btnCloseSelector) {
   function bindPostData(form) {
     form.addEventListener('submit', e => {
       e.preventDefault();
-      document.body.classList.add('sending');
-      const formData = new FormData(form);
-      const json = JSON.stringify(Object.fromEntries(formData.entries()));
-      (0,_services_services__WEBPACK_IMPORTED_MODULE_0__.postData)('https://jsonplaceholder.typicode.com/posts', json).then(() => {
-        closeModal();
-        message.classList.add('success');
-      }).catch(() => {
-        closeModal();
-        message.classList.add('failure');
-      }).finally(() => {
-        form.reset();
-      });
+      const isValid = (0,_validation__WEBPACK_IMPORTED_MODULE_1__["default"])(form, '.input-name', '.input-phone', '.input-password', '.input-email');
+      if (isValid) {
+        document.body.classList.add('sending');
+        const formData = new FormData(form);
+        const json = JSON.stringify(Object.fromEntries(formData.entries()));
+        (0,_services_services__WEBPACK_IMPORTED_MODULE_0__.postData)('http://localhost:3000/requests', json).then(() => {
+          closeModal();
+          message.classList.add('success');
+        }).catch(() => {
+          closeModal();
+          message.classList.add('failure');
+        }).finally(() => {
+          form.reset();
+        });
+      } else {
+        console.log('Ошибка валидации формы');
+      }
     });
   }
   function closeModal() {
@@ -336,6 +340,91 @@ function modal(btnOpenSelector, btnCloseSelector, modalSelector) {
   window.addEventListener('scroll', showModalByScroll);
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (modal);
+
+/***/ }),
+
+/***/ "./js/modules/phoneinput.js":
+/*!**********************************!*\
+  !*** ./js/modules/phoneinput.js ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+function phoneInput() {
+  let phoneInputs = document.querySelectorAll('input[data-tel-input]');
+  let getInputNumbersValue = function (input) {
+    // Return stripped input value — just numbers
+    return input.value.replace(/\D/g, '');
+  };
+  let onPhonePaste = function (e) {
+    let input = e.target,
+      inputNumbersValue = getInputNumbersValue(input);
+    let pasted = e.clipboardData || window.clipboardData;
+    if (pasted) {
+      let pastedText = pasted.getData('Text');
+      if (/\D/g.test(pastedText)) {
+        // Attempt to paste non-numeric symbol — remove all non-numeric symbols,
+        // formatting will be in onPhoneInput handler
+        input.value = inputNumbersValue;
+        return;
+      }
+    }
+  };
+  let onPhoneInput = function (e) {
+    let input = e.target,
+      inputNumbersValue = getInputNumbersValue(input),
+      selectionStart = input.selectionStart,
+      formattedInputValue = "";
+    if (!inputNumbersValue) {
+      return input.value = "";
+    }
+    if (input.value.length != selectionStart) {
+      // Editing in the middle of input, not last symbol
+      if (e.data && /\D/g.test(e.data)) {
+        // Attempt to input non-numeric symbol
+        input.value = inputNumbersValue;
+      }
+      return;
+    }
+    if (["7", "8", "9"].indexOf(inputNumbersValue[0]) > -1) {
+      if (inputNumbersValue[0] == "9") inputNumbersValue = "7" + inputNumbersValue;
+      let firstSymbols = inputNumbersValue[0] == "8" ? "8" : "+7";
+      formattedInputValue = input.value = firstSymbols + " ";
+      if (inputNumbersValue.length > 1) {
+        formattedInputValue += '(' + inputNumbersValue.substring(1, 4);
+      }
+      if (inputNumbersValue.length >= 5) {
+        formattedInputValue += ') ' + inputNumbersValue.substring(4, 7);
+      }
+      if (inputNumbersValue.length >= 8) {
+        formattedInputValue += '-' + inputNumbersValue.substring(7, 9);
+      }
+      if (inputNumbersValue.length >= 10) {
+        formattedInputValue += '-' + inputNumbersValue.substring(9, 11);
+      }
+    } else {
+      formattedInputValue = '+' + inputNumbersValue.substring(0, 16);
+    }
+    input.value = formattedInputValue;
+  };
+  let onPhoneKeyDown = function (e) {
+    // Clear input after remove last symbol
+    let inputValue = e.target.value.replace(/\D/g, '');
+    if (e.keyCode == 8 && inputValue.length == 1) {
+      e.target.value = "";
+    }
+  };
+  for (let phoneInput of phoneInputs) {
+    phoneInput.addEventListener('keydown', onPhoneKeyDown);
+    phoneInput.addEventListener('input', onPhoneInput, false);
+    phoneInput.addEventListener('paste', onPhonePaste, false);
+  }
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (phoneInput);
 
 /***/ }),
 
@@ -569,6 +658,159 @@ function timer(deadLine, timeSelector) {
   setClock(timeSelector, deadLine);
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (timer);
+
+/***/ }),
+
+/***/ "./js/modules/validation.js":
+/*!**********************************!*\
+  !*** ./js/modules/validation.js ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ validation)
+/* harmony export */ });
+function validation(form, inputName, inputPhone, inputPassword, inputEmail) {
+  const nameInput = form.querySelector(inputName);
+  const phoneInput = form.querySelector(inputPhone);
+  const passwordInput = form.querySelector(inputPassword);
+  const emailInput = form.querySelector(inputEmail);
+  let isValid = true;
+  let message = {
+    name: {
+      required: 'Введите имя пользователя',
+      minLength: 'Введите не менее 2 символов',
+      correct: 'Имя не должно содержать цифр'
+    },
+    phone: {
+      required: 'Введите номер телефона',
+      minLength: 'Введите не менее 11 символов',
+      correct: 'Номер не должен содержать буквы'
+    },
+    email: {
+      required: 'Введите электронную почту',
+      correct: 'Введите корректный email'
+    }
+  };
+  let {
+    name,
+    phone,
+    email
+  } = message;
+  errorWork(nameInput, 'name', 2, /\d/, name);
+  if (passwordInput) {
+    passwordErrorWork();
+  } else if (emailInput) {
+    emailErrorWork();
+  } else if (phoneInput) {
+    errorWork(phoneInput, 'phone', 11, /\D/, phone);
+  }
+  return isValid;
+  function errorWork(input, classError, length, regex, message) {
+    createError(input, classError);
+    const error = form.querySelector(`.${classError}__error`);
+    const validateField = () => {
+      validationNamePhone(input, error, length, regex, message);
+    };
+    input.removeEventListener('input', validateField);
+    input.addEventListener('input', validateField);
+    validateField();
+  }
+  function emailErrorWork() {
+    createError(emailInput, 'email');
+    const emailError = form.querySelector('.email__error');
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const validateEmailField = () => {
+      validationEmail(emailInput, emailError, emailRegex, email);
+    };
+    emailInput.removeEventListener('input', validateEmailField);
+    emailInput.addEventListener('input', validateEmailField);
+    validateEmailField();
+  }
+  function passwordErrorWork() {
+    const passwordErrors = form.querySelectorAll('.password__error');
+    const validatePasswordField = () => {
+      validatePassword(passwordInput, passwordErrors);
+    };
+    passwordInput.removeEventListener('input', validatePasswordField);
+    passwordInput.addEventListener('input', validatePasswordField);
+    validatePasswordField();
+  }
+  function validationNamePhone(input, error, length, regex, message) {
+    let fieldIsValid = true;
+    if (input.value.trim() === '') {
+      error.innerHTML = message.required;
+      error.style.display = 'block';
+      fieldIsValid = false;
+    } else if (regex.test(input.value)) {
+      error.innerHTML = message.correct;
+      error.style.display = 'block';
+      fieldIsValid = false;
+    } else if (input.value.length < length) {
+      error.innerHTML = message.minLength;
+      error.style.display = 'block';
+      fieldIsValid = false;
+    } else {
+      error.style.display = 'none';
+    }
+    if (!fieldIsValid) isValid = false;
+  }
+  function validationEmail(input, error, regex, message) {
+    let fieldIsValid = true;
+    if (input.value.trim() === '') {
+      error.innerHTML = message.required;
+      error.style.display = 'block';
+      fieldIsValid = false;
+    } else if (!regex.test(input.value)) {
+      error.innerHTML = message.correct;
+      error.style.display = 'block';
+      fieldIsValid = false;
+    } else {
+      error.style.display = 'none';
+    }
+    if (!fieldIsValid) isValid = false;
+  }
+  function validatePassword(input, errors) {
+    const validations = [{
+      regex: /.{8,}/,
+      element: errors[0]
+    }, {
+      regex: /[A-ZА-ЯЁ]/,
+      element: errors[1]
+    }, {
+      regex: /[a-zа-яё]/,
+      element: errors[2]
+    }, {
+      regex: /[0-9]/,
+      element: errors[3]
+    }, {
+      regex: /[!@#$%^&*(),.?":{}|<>]/,
+      element: errors[4]
+    }];
+    validations.forEach(({
+      regex,
+      element
+    }) => {
+      if (regex.test(input.value)) {
+        element.style.color = 'green';
+      } else {
+        isValid = false;
+        element.style.color = 'rgba(255, 60, 0, 1)';
+      }
+    });
+  }
+  function createError(input, name) {
+    let error = form.querySelector(`.${name}__error`);
+    if (!error) {
+      error = document.createElement('span');
+      error.classList.add('error', `${name}__error`);
+      error.style.display = 'none';
+      input.insertAdjacentElement('afterend', error);
+    }
+  }
+}
 
 /***/ }),
 
@@ -1907,7 +2149,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_tabs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/tabs */ "./js/modules/tabs.js");
 /* harmony import */ var _modules_timer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/timer */ "./js/modules/timer.js");
 /* harmony import */ var _modules_animation__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/animation */ "./js/modules/animation.js");
+/* harmony import */ var _modules_phoneinput__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/phoneinput */ "./js/modules/phoneinput.js");
 (__webpack_require__(/*! es6-promise */ "./node_modules/es6-promise/dist/es6-promise.js").polyfill)();
+
 
 
 
@@ -1923,6 +2167,7 @@ window.addEventListener('DOMContentLoaded', () => {
   (0,_modules_cards__WEBPACK_IMPORTED_MODULE_2__["default"])();
   (0,_modules_forms__WEBPACK_IMPORTED_MODULE_3__["default"])('form', '.modal', '.message', '[data-close]');
   (0,_modules_modal__WEBPACK_IMPORTED_MODULE_4__["default"])('[data-modal]', '[data-close]', '.modal');
+  // phoneInput();
   (0,_modules_slider__WEBPACK_IMPORTED_MODULE_5__["default"])({
     imagesSelector: '.offer__slide',
     prevSelector: '.offer__slider-prev',
