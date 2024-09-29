@@ -28,5 +28,5 @@ window.addEventListener('DOMContentLoaded', () => {
         sliderSelector: '.offer__slider' 
     });
     tabs('.tabcontent', 'tabheader__item', '.tabheader', 'hide-content', 'tabheader__item_active');
-    timer('2024-12-12', '.timer');
+    timer('2025-01-7', '.timer');
 })

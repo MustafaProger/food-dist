@@ -6,6 +6,9 @@
         padding: 0 30px
 
 @media (max-width: 1200px) 
+    .bgc_y
+        display: none
+
     .header
         padding: 0 30px
         .header__links
@@ -67,6 +70,19 @@
             .offer__slider
                 margin: 0 auto         
 
+    .order
+        &__form
+            flex-direction: column
+            align-items: center
+            margin-top: 50px
+            input
+                margin-bottom: 15px 
+                width: 310px
+            button
+                width: 310px
+            img
+                display: none
+
 @media (max-width: 1050px) 
     .menu
         .container
@@ -79,6 +95,24 @@
                 bottom: 0
                 left: 50%
                 transform: translateX(-50%)
+
+    .promotion
+        padding: 70px 0 50px 0
+        .container
+            flex-direction: column
+            gap: 50px
+            justify-content: center
+            align-items: center
+            .promotion__timer
+                width: 100%
+                max-width: 500px
+                margin: 0 auto
+                .title
+                    text-align: center
+                .timer
+                    padding: 0
+        &__text
+            width: 100%
 
 @media (max-width: 900px) 
     .calculating
@@ -122,6 +156,9 @@
                 transform: translateX(0%)
 
 @media (max-width: 620px) 
+    .title
+        font-size: 32px
+
     .header
         .header__right-block
             button
@@ -171,6 +208,14 @@
                         grid-column: 1 / 3
                         grid-row: 2 / 3
 
+    .order
+        padding-bottom: 50px
+
+    .promotion
+        &__descr
+            font-size: 16px
+            margin: 20px 0 0 0
+
 @media (max-width: 520px) 
     .calculating
         &__field
@@ -187,3 +232,20 @@
         &__total
             flex-direction: column
             gap: 20px
+
+    .timer
+        &__block:nth-child(4)
+            display: none
+
+    .footer 
+        .subtitle 
+            font-size: 15px
+      
+@media (max-width: 375px) 
+    .container
+        padding: 0 10px
+
+    .menu
+        &__field
+            .menu__item
+                width: 290px
