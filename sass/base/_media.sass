@@ -5,7 +5,6 @@
     .container
         padding: 0 30px
 
-
 @media (max-width: 1200px) 
     .header
         padding: 0 30px
@@ -68,9 +67,32 @@
             .offer__slider
                 margin: 0 auto         
 
+@media (max-width: 1050px) 
+    .menu
+        .container
+            position: relative
+            grid-template-columns: repeat(2, 1fr)
+            grid-template-rows: repeat(2, 1fr)
+            gap: 20px 0
+            .menu__item:nth-child(2)
+                position: absolute
+                bottom: 0
+                left: 50%
+                transform: translateX(-50%)
 
+@media (max-width: 900px) 
+    .calculating
+        &__field
+            padding: 20px
+        .calculating__choose
+            &_big
+                display: grid
+                grid-template-columns: repeat(2, 200px)
+                align-items: center
+                justify-content: center
+                gap: 20px
 
-@media (max-width: 730px) 
+@media (max-width: 730px)
     .offer
         .container_2
             .offer__slider
@@ -78,6 +100,26 @@
                 height: 300px
                 .offer__slide img
                     height: 300px
+    
+    .calculating
+        .calculating__choose
+            &_medium,
+            &_big
+                .calculating__choose-item
+                    width: 100%
+
+    .menu
+        .container
+            position: relative
+            grid-template-columns: repeat(1, 1fr)
+            grid-template-rows: repeat(3, 1fr)
+            gap: 20px
+            align-items: center
+            .menu__item:nth-child(2)
+                position: relative
+                bottom: 0
+                left: 0
+                transform: translateX(0%)
 
 @media (max-width: 620px) 
     .header
@@ -112,4 +154,36 @@
             .offer__advantages
                 display: flex
                 flex-direction: column
+        .offer__descr,
+        .offer__advantages-text
+            font-size: 16px
 
+    .calculating
+        &__field
+            .calculating__choose
+                &_medium
+                    display: grid
+                    grid-template-columns: repeat(2, 200px)
+                    align-items: center
+                    justify-content: center
+                    gap: 20px
+                    .calculating__choose-item:nth-child(3)
+                        grid-column: 1 / 3
+                        grid-row: 2 / 3
+
+@media (max-width: 520px) 
+    .calculating
+        &__field
+            .calculating__choose
+                &_big,
+                &_medium
+                    grid-template-columns: repeat(1, 1fr)
+
+                &_medium
+                    .calculating__choose-item:nth-child(3)
+                        grid-column: 1 / 2
+                        grid-row: 3 / 4
+    
+        &__total
+            flex-direction: column
+            gap: 20px
