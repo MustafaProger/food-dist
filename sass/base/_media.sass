@@ -49,6 +49,36 @@
         .preview__life
             display: none
 
+    .offer
+        .container_1
+            gap: 30px
+            .offer__action
+                display: none
+        .container_2
+            flex-direction: column
+            .offer__advantages
+                width: 100%
+                height: 100%
+                display: flex
+                gap: 50px
+                margin: 50px 0 
+            .offer__advantages-block
+                h2
+                    margin: 0
+            .offer__slider
+                margin: 0 auto         
+
+
+
+@media (max-width: 730px) 
+    .offer
+        .container_2
+            .offer__slider
+                width: 100%
+                height: 300px
+                .offer__slide img
+                    height: 300px
+
 @media (max-width: 620px) 
     .header
         .header__right-block
@@ -75,3 +105,11 @@
                     padding: 20px
                     font-size: 16px
                     line-height: 25px
+
+    .offer
+        padding: 70px 0 50px 0
+        .container_2
+            .offer__advantages
+                display: flex
+                flex-direction: column
+
